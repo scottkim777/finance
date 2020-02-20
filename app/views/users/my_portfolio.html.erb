@@ -1,0 +1,50 @@
+<h1>My Portfolio</h1>
+
+<hr>
+<div class="search-area">
+    <h3>Search Stocks</h3>
+
+    <!-- setting remote: true tells it to use AJAX to submit our request, thus rendering -->
+    <%= form_tag search_stock_path, remote: true, method: :get do %>
+        <div class="form-group row">
+            <div class="col-sm-6">
+              <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
+
+            </div>
+
+            <div class="col-sm-3 submit-button-cls">
+                <%= button_tag type: :submit, class: "btn btn-success" do %>
+                  <%= fa_icon 'search 2x' %>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+</div>
+<div id="stock-result"></div>
+
+<table class="table stock-table">
+    <thead>
+    <tr>
+        <th scope="col">Ticker</th>
+        <th scope="col">Name</th>
+        <th scope="col">Last Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @my_stocks.each do |s| %>
+        <tr>
+            <th scope="row"><%= s.ticker %></th>
+            <td><%= s.name %></td>
+            <td><%= s.last_price %></td>
+            <td><%= link_to 'Remove', user_stock_path(s), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-xs btn-warning' %></td>
+        </tr>
+    <% end  %>
+
+    </tbody>
+</table>
+
+
+<hr>
+
+
+<p>Find me in app/views/users/my_portfolio.html.erb</p>
